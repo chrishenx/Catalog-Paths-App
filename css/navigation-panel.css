@@ -1,0 +1,16 @@
+.navigation-panel {
+  font: bold 14px sans-serif;
+  position: absolute;
+  height: 10%;
+  top: 0;
+}
+
+.navigation-panel a {
+  margin: 0 auto;
+  color: #6c6;
+  text-decoration: none; 
+}
+
+.navigation-panel a:hover {
+  text-decoration: underline; 
+}
