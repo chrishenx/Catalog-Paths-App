@@ -1,7 +1,7 @@
 .navigation-panel {
   font: bold 14px sans-serif;
-  position: absolute;
-  height: 10%;
+  position: relative;
+  height: 0;
   top: 0;
 }
 
@@ -12,5 +12,5 @@
 }
 
 .navigation-panel a:hover {
-  text-decoration: underline; 
+  text-decoration: overline; 
 }

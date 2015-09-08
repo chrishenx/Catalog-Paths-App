@@ -1,0 +1,73 @@
+.common {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;    
+}
+
+#main-content {
+  height: 34%;
+  display: block;
+  top: 5%;
+  overflow-y: scroll;
+}
+
+#locations-caption {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 10px auto;
+}
+
+#locations-table {
+  width: 100%; 
+  border: 2px solid #00B1CC;
+  table-layout: fixed;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+  border-collapse: collapse;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.locations_header {
+  border: 1px double #007587; 
+  background-color: #A0C942;
+  text-align: center;
+}
+
+.locations-data {
+  border: 1px solid #007587;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.95em!important;
+  background-color: #EAF2D3;
+}
+
+#map {
+  margin-top: 4%;
+  height: 52%;
+}
+
+#options {
+  top: 5%;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+}
+
+#travel-mode {
+  left: 0;
+  height: 20px;
+}
+
+#travel-mode-span {
+
+}
+
+#ok-button {
+  right: 0;
+  height: 20px;
+}

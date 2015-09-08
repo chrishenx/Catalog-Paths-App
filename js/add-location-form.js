@@ -4,8 +4,6 @@
  */
 
 var countries; 
-var geocoder;
-var map;
 var latlng;
 
 // Sacado de http://www.etnassoft.com/2011/03/03/eliminar-tildes-con-javascript/
@@ -30,31 +28,6 @@ var normalizeString = (function() {
   }
 })();
 
-// Inicializa el mapa con la ubicacion del dispositivo
-function initMap() {
-  geocoder = new google.maps.Geocoder();
-  var latlng = new google.maps.LatLng(0, 0);
-  var mapOptions = {
-    zoom: 1,
-    center: latlng 
-  }
-  map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      map.setCenter(latlng);  
-      map.setZoom(14);
-      geocoder.geocode({'location': latlng}, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            setAddressComponents(results[0].address_components);
-          }
-        }
-      });
-    });
-  }
-}
-
 // Verifica alguno de los elementos de elems esta dentro de array
 function containsSome(array, elems) {
   for (var i = 0; i < elems.length; i++) {
@@ -66,6 +39,7 @@ function containsSome(array, elems) {
 // Establece el valor de los campos del formulario usando 
 // los componenetes de direccion regresados por la Google API
 function setAddressComponents(address_components) {
+  if (!geocoder) return;
   var country;
   var region;
   var streetAddress;
@@ -97,6 +71,7 @@ function setAddressComponents(address_components) {
 
 // Establece la posicion y zoom del mapa con base en una direccion
 function geocodeAddress(address, zoomLevel) {
+  if (!geocoder) return;
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
       var result = results[0]; 
@@ -109,7 +84,6 @@ function geocodeAddress(address, zoomLevel) {
       alert('No se pudo encontrar el lugar, intente cambiar el formato de la ubicacion');
     }
   });
-  return latlng;
 }
 
 // Checa si una cadena contiene solo caracteres ascii
@@ -176,7 +150,7 @@ $(document).ready(function() {
     var selectedCountry = countrySelect.find(':selected').text();
     var selectedRegion = regionSelect.find(':selected').text();
     var address = addressInput.val();
-    return geocodeAddress(address + ',' + selectedRegion + ',' + selectedCountry, 14);
+    geocodeAddress(address + ',' + selectedRegion + ',' + selectedCountry, 14);
   };
 
   addressInput.change(function() {
@@ -188,8 +162,11 @@ $(document).ready(function() {
   $('form').submit(function(event) {
     event.preventDefault();
 
-    latlng = updateMap();
-    if (!latlng) return;
+    updateMap();
+    if (!latlng) {
+      alert('No se ha podido establecer conección con los mapas de Google,\
+       no podemos obtener sus coordenadas. ¿Esta conectado a internet?');
+    }
 
     // console.log($('form').serialize() + '&lat=' + latlng.lat() + '&lng=' + latlng.lng());
 
@@ -207,7 +184,7 @@ $(document).ready(function() {
         }
       },
       error: function(error) {
-        alert('Error, intenete de nuevo');
+        alert('Error en la conexión con el servidor');
       }
     });
     return false;

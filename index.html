@@ -6,17 +6,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/navigation-panel.css">
+  <link rel="stylesheet" href="css/main.css">
 
 </head>
 <body>
 
   <div class="navigation-panel">
-    <a href="add-location-form.html">Agregar nueva localidad</a>
+    <h2>
+      <a href="add-location-form.html">Agregar nueva localidad</a>
+    </h2>
   </div>
 
-  <div>
+  <div id="main-content" class="common">
+    
+    <table id="locations-table">
+      <caption id="locations-caption">Localidades</caption>
+      <tr>
+        <td class="locations_header">Nombre</td>
+        <td class="locations_header">Pais</td>
+        <td class="locations_header">Region/Estado</td>
+        <td class="locations_header">Direcci&oacute;n</td>
+        <td class="locations_header">Coordenadas</td>
+      </tr>
+      <!-- td tags must have a locations-data class -->
+    </table>
+
 
   </div>
+
+  <div id="options" class="common">
+    <span id="travel-mode-span">Modo de viaje: </span>
+    <select id="travel-mode">
+      <option>Bicicleta </option>
+      <option>Coche </option>
+      <option>Caminando </option>
+      <option>Transporte p&uacute;blico </option>
+    </select>
+    <button id="ok-button">Generar ruta</button>
+  </div>
+
+  <div id="map" class="common">
+
+  </div>
+
+  <script src="js/jquery-1.3.2.min.js"></script>
+  <script src="js/index.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap"async defer></script>
+
+  <script src="js/google-api-utilities.js"></script>
 
 </body>
 </html>
