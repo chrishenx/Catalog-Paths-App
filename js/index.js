@@ -1,38 +1,10 @@
 /**
   @author Christian Gonzalez
   @date September 7th, 2015
+  @update September 8th, 2015
  */
 
 // Actualiza la tabla usando el arreglo de objetos locations
-
-
-
-var MarkerManager = (function() {
-  var markers = [undefined, undefined];
-  var current = 0;
-  var addMarker = function(latlng) {
-    map.setCenter(latlng);
-    if (markers[current]) {
-      markers[current].setMap(null);
-    }
-    markers[current] = new google.maps.Marker({
-      map: map,
-      position: latlng
-    });
-    if (current < 1) { // Only two markers allowed
-      current++; 
-    } else {
-      current = 0;
-    }
-  }
-
-  var markerCount = function() {
-    return markers[0] != undefined ? (markers[1] != undefined ? 2 : 1) : 0;
-  } 
-
-  return {addMarker: addMarker, markerCount: markerCount};
-})();
-
 function updateTable(locations) {
   var locationsTable = $('#locations-table');
   for (var i = 0; i < locations.length; i++) {
@@ -44,6 +16,7 @@ function updateTable(locations) {
         row.append('<td class="locations-data">' + location[attr] + '</td>');
       }
     }
+    row.css('cursor', 'pointer');
     row.append('<td class="locations-data coords">' +
        location['latitude'] + ',' + location['longitud'] + '</td>');
     row.dblclick(function() {
@@ -53,9 +26,15 @@ function updateTable(locations) {
         // console.log(row.find('.coords').text()); return;
         var coords = $(this).find('.coords').text().split(',');
         var latlng = {lat: parseFloat(coords[0]), lng: parseFloat(coords[1])}; 
-        MarkerManager.addMarker(latlng);
+        RouteManager.addMarker(latlng);
       }
     });
+    row.mouseenter(function() {
+      $(this).find('td').css('background-color', '#CCFFFF');
+    })
+    row.mouseleave(function() {
+      $(this).find('td').css('background-color', '#EAF2D3');
+    })
   }
 }
 
@@ -70,7 +49,7 @@ $(document).ready(function() {
         var locations = data['locations'];
         updateTable(locations);
         if (locations.length < 2) {
-          alert('Agregue por lo menos 2 localidades para generar una ruta.');
+          alert('Agregue por lo menos 2 localidades a la base de datos para poder generar una ruta.');
         }
       } else {
         alert(data['error']);
@@ -82,9 +61,18 @@ $(document).ready(function() {
   });
 
   $('#ok-button').click(function() {
-    if (MarkerManager.markerCount() != 2) {
-      alert('Debes seleccionar dos ubicaciones');
+    if (!RouteManager) {
+      alert('Verifica tu conección a internet');
+    } else {
+      RouteManager.makeRoute();
     }
   });
 
+  $('clear-routes-button').click(function() {
+    if (!RouteManager) {
+      alert('Verifica tu coneccion a internet');
+    } else {
+      RouteManager.clearRoutes();
+    }
+  });
 });

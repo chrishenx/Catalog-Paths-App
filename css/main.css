@@ -6,10 +6,11 @@
 }
 
 #main-content {
-  height: 34%;
+  height: 30%;
   display: block;
   top: 5%;
   overflow-y: scroll;
+  overflow: hidden;
 }
 
 #locations-caption {
@@ -64,10 +65,31 @@
 }
 
 #travel-mode-span {
+}
 
+.controls {
+  height: 30px!important;
 }
 
 #ok-button {
+  width: 15%;
+}
+
+#clear-routes-button {
+  position: absolute;
   right: 0;
-  height: 20px;
+  width: 15%;
+}
+
+#status-bar-div {
+  display: inline;
+  border: 1px dashed black;
+  position: absolute;
+  width: 35%;
+  margin-left: 2%;
+  display: inline-block;
+  text-align: center;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden; 
 }

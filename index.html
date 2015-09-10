@@ -35,14 +35,16 @@
   </div>
 
   <div id="options" class="common">
-    <span id="travel-mode-span">Modo de viaje: </span>
-    <select id="travel-mode">
+    <span id="travel-mode-span" class="controls">Modo de viaje: </span>
+    <select id="travel-mode" class="controls">
       <option>Bicicleta </option>
       <option>Coche </option>
       <option>Caminando </option>
       <option>Transporte p&uacute;blico </option>
     </select>
-    <button id="ok-button">Generar ruta</button>
+    <button id="ok-button" class="controls">Generar ruta</button>
+    <button id="clear-routes-button" class="controls">Limpiar rutas</button>
+    <div id="status-bar-div" class="controls"></div>
   </div>
 
   <div id="map" class="common">
@@ -50,10 +52,10 @@
   </div>
 
   <script src="js/jquery-1.3.2.min.js"></script>
-  <script src="js/index.js"></script>
 
   <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap"async defer></script>
 
+  <script src="js/index.js"></script>
   <script src="js/google-api-utilities.js"></script>
 
 </body>
